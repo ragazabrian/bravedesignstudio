@@ -1,8 +1,57 @@
-/* Desktop: fourmula.ai-style nav cluster (menu pill + account-style icon + CTA button),
-   grouped together on the right side of the header, opening a compact dropdown.
+/* Real Neue Montreal font files (the site's own @font-face pointed at missing woff/woff2
+   files, so text was silently falling back to a system font). Force every custom
+   font on the site — including the "Super2" display class — to Neue Montreal only. */
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./fonts/NeueMontreal-Light.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./fonts/NeueMontreal-Regular.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./fonts/NeueMontreal-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Neue Montreal";
+  src: url("./fonts/NeueMontreal-Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+body, .super {
+  font-family: "Neue Montreal", Arial, Helvetica, sans-serif !important;
+}
+
+/* Desktop: fourmula.ai-style nav — one large black pill containing "Let's talk" +
+   the Menu trigger (icon + label), plus a small account-style icon, grouped on the right.
+   Sized to match the site's original CTA button (5rem tall), not the smaller compact pill.
    Mobile: only the plain icon button shows, opening the original SuperAgency full-screen menu untouched. */
 
-/* --- Icon-only pill button (mobile default: no text, no cta, no signin bubble) --- */
+/* --- Text logo (replaces the old vector wordmark) --- */
+header .logo {
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 2rem;
+  color: #000;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+
+/* --- Mobile-default: icon-only circular button, no cta text, no signin bubble --- */
+.fm-pill { display: contents; }
+.fm-cta-inline, .fm-signin { display: none; }
+
 .menu-button.menu-pill {
   position: static !important;
   display: flex !important;
@@ -41,7 +90,6 @@
   transform: rotate(-45deg) !important;
 }
 .menu-pill-label { display: none; }
-.fm-signin, .fm-cta { display: none; }
 
 /* --- Desktop-only: full fourmula.ai cluster + compact dropdown --- */
 @media (min-width: 769px) {
@@ -58,51 +106,58 @@
   }
   header .right { order: 3; }
 
-  header .logo svg { fill: #000 !important; }
   header .time-zone-items,
   header .time-zone-items * { color: #000 !important; }
 
-  /* Group: account-style icon + CTA button + menu pill, all together on the right */
+  /* Group: account-style icon + one big pill (Let's talk + Menu trigger) */
   .fm-nav {
     display: flex !important;
     align-items: center !important;
-    gap: 0.9rem !important;
+    gap: 1rem !important;
   }
   .fm-signin {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 2.7rem !important;
-    height: 2.7rem !important;
+    width: 3.2rem !important;
+    height: 3.2rem !important;
     border-radius: 999px !important;
     border: 1px solid rgba(0, 0, 0, 0.2) !important;
     color: #000 !important;
     flex-shrink: 0;
   }
-  .fm-signin svg { width: 1.3rem !important; height: 1.3rem !important; }
+  .fm-signin svg { width: 1.5rem !important; height: 1.5rem !important; }
   .fm-signin:hover { border-color: rgba(0, 0, 0, 0.5) !important; }
 
-  .fm-cta {
+  /* One big pill — original CTA button size (5rem tall), holding both segments */
+  .fm-pill {
     display: flex !important;
     align-items: center !important;
     background: #020108 !important;
-    color: #fff !important;
     border-radius: 999px !important;
-    padding: 0 1.4rem !important;
-    height: 4rem !important;
+    height: 5rem !important;
+    padding: 0 0.6rem 0 2.4rem !important;
+    gap: 1.6rem !important;
+  }
+  .fm-cta-inline {
+    display: inline-flex !important;
+    align-items: center !important;
+    color: #fff !important;
     font-size: 1.4rem !important;
     white-space: nowrap;
-    transition: background .3s ease;
+    transition: opacity .2s ease;
   }
-  .fm-cta:hover { background: #0119ff !important; }
+  .fm-cta-inline:hover { opacity: 0.7; }
 
-  /* Menu pill: icon + "Menu"/"Close" label, matching fourmula.ai proportions */
+  /* Menu trigger: sits inside the shared pill, no background of its own */
   .menu-button.menu-pill {
-    gap: 0.7rem !important;
-    padding: 0 1.4rem 0 1.1rem !important;
+    background: transparent !important;
+    height: 100% !important;
     width: auto !important;
+    padding: 0 0.6rem !important;
+    gap: 0.8rem !important;
   }
-  .menu-button.menu-pill .lines { width: 1.5rem !important; height: 1.5rem !important; }
+  .menu-button.menu-pill .lines { width: 1.6rem !important; height: 1.6rem !important; }
   .menu-pill-label {
     display: block !important;
     color: #fff !important;
@@ -183,5 +238,10 @@
   }
 }
 
-/* Mobile (<=768px): fm-signin/fm-cta/label stay hidden — the original SuperAgency
-   full-screen menu markup/CSS/JS takes over untouched, only the plain icon button shows. */
+/* Mobile (<=768px): fm-cta-inline/fm-signin stay hidden — the original SuperAgency
+   full-screen menu markup/CSS/JS takes over untouched, only the plain icon button shows.
+   The original color-swap script targets "header .logo svg" (gone now that the logo is
+   text), so mirror it here for the new text logo when the mobile menu is open. */
+@media (max-width: 768px) {
+  header:has(.menu-button.active) .logo { color: #fff !important; }
+}
