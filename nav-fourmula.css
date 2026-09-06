@@ -33,16 +33,27 @@ body, .super {
   font-family: "Neue Montreal", Arial, Helvetica, sans-serif !important;
 }
 
-/* Text logo (replaces the old vector wordmark) */
+/* Brave Design Studio logo: icon mark on desktop, full wordmark on mobile.
+   Each swaps from its dark (light-background) variant to its light
+   (dark-background) variant when the full-screen menu is open. */
 header .logo {
-  font-family: inherit;
-  font-weight: 700;
-  font-size: 2rem;
-  color: #000;
+  display: block;
   text-decoration: none;
-  letter-spacing: -0.01em;
+  line-height: 0;
+}
+header .logo img {
+  display: none;
+  width: auto;
 }
 
-/* The site's original color-swap script targets "header .logo svg" (gone now that the
-   logo is text), so mirror it here for the new text logo when the full-screen menu opens. */
-header:has(.menu-button.active) .logo { color: #fff !important; }
+@media (min-width: 769px) {
+  header .logo img.logo-icon-dark { display: block; height: 3.2rem; }
+  header:has(.menu-button.active) .logo img.logo-icon-dark { display: none; }
+  header:has(.menu-button.active) .logo img.logo-icon-light { display: block; height: 3.2rem; }
+}
+
+@media (max-width: 768px) {
+  header .logo img.logo-word-dark { display: block; height: 1.8rem; }
+  header:has(.menu-button.active) .logo img.logo-word-dark { display: none; }
+  header:has(.menu-button.active) .logo img.logo-word-light { display: block; height: 1.8rem; }
+}
