@@ -33,7 +33,7 @@ body, .super {
   font-family: "Neue Montreal", Arial, Helvetica, sans-serif !important;
 }
 
-/* Brave Design Studio logo: icon mark on desktop, full wordmark on mobile.
+/* Brave Design Studio logo: full wordmark on desktop, icon mark on mobile.
    Each swaps from its dark (light-background) variant to its light
    (dark-background) variant when the full-screen menu is open. */
 header .logo {
@@ -47,13 +47,13 @@ header .logo img {
 }
 
 @media (min-width: 769px) {
-  header .logo img.logo-icon-dark { display: block; height: 3.2rem; }
-  header:has(.menu-button.active) .logo img.logo-icon-dark { display: none; }
-  header:has(.menu-button.active) .logo img.logo-icon-light { display: block; height: 3.2rem; }
+  header .logo img.logo-word-dark { display: block; height: 3.4rem; }
+  header:has(.menu-button.active) .logo img.logo-word-dark { display: none; }
+  header:has(.menu-button.active) .logo img.logo-word-light { display: block; height: 3.4rem; }
 }
 
 @media (max-width: 768px) {
-  header .logo img.logo-word-dark { display: block; height: 1.8rem; }
-  header:has(.menu-button.active) .logo img.logo-word-dark { display: none; }
-  header:has(.menu-button.active) .logo img.logo-word-light { display: block; height: 1.8rem; }
+  header .logo img.logo-icon-dark { display: block; height: 2.4rem; }
+  header:has(.menu-button.active) .logo img.logo-icon-dark { display: none; }
+  header:has(.menu-button.active) .logo img.logo-icon-light { display: block; height: 2.4rem; }
 }
