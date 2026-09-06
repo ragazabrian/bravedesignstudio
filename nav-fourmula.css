@@ -57,3 +57,24 @@ header .logo img {
   header:has(.menu-button.active) .logo img.logo-icon-dark { display: none; }
   header:has(.menu-button.active) .logo img.logo-icon-light { display: block; height: 2.4rem; }
 }
+
+/* Space between the "Let's talk" button and the menu icon (previously flush
+   against each other since .right relies on justify-content, not a gap) */
+header .right {
+  gap: 1.2rem;
+}
+
+/* Footer wordmark: the original was a single-line SVG that stretched to the
+   container's full width; ours is a two-line lockup, so size by height instead
+   of letting it stretch to 100% width (which would make it too tall). */
+.bottom .logo {
+  display: flex;
+}
+.footer-logo {
+  width: auto !important;
+  height: 12rem;
+  max-width: 100%;
+}
+@media (max-width: 768px) {
+  .footer-logo { height: 6rem; }
+}
